@@ -1,42 +1,35 @@
 package ru.netology.javaqa;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Game {
-    List<Player> players = new ArrayList<>();
+    //    List<Player> players = new ArrayList<>();
+    HashMap<String, Player> players = new HashMap<>();
 
     public void register(Player player) {
-        players.add(player);
+        players.put(player.getName(), player);
     }
 
-//    public List<Player> findAll() {
-//        return players;
-//    }
-
-    public Player findByName(String playerName) {
-        for (Player player : players) {
-            if (player.getName().equals(playerName)) {
-                return player;
-            }
-        }
-        return null;
+    public boolean findByName(String playerName) {
+        return players.containsKey(playerName);
     }
 
     public int round(String playerMame1, String playerName2) {
-        if (findByName(playerMame1) == null) {
+        if (!findByName(playerMame1)) {
             throw new NotRegisteredException(
                     "Игрок " + playerMame1 + " не зарегистрирован!"
             );
         }
-        if (findByName(playerName2) == null) {
+        if (!findByName(playerName2)) {
             throw new NotRegisteredException(
                     "Игрок " + playerName2 + " не зарегистрирован!"
             );
         }
 
-        Player player1 = findByName(playerMame1);
-        Player player2 = findByName(playerName2);
+        Player player1 = players.get(playerMame1);
+        Player player2 = players.get(playerName2);
 
         if (player1.getStrength() > player2.getStrength()) {
             return 1;
