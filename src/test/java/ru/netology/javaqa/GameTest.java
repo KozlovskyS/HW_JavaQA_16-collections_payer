@@ -22,8 +22,8 @@ class GameTest {
         game.register(player2);
         game.register(player3);
 
-        Player expected = player2;
-        Player actual = game.findByName("Петя");
+        boolean expected = true;
+        boolean actual = game.findByName("Петя");
 
         Assertions.assertEquals(expected, actual);
     }
